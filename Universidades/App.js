@@ -1,16 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useState } from 'react';
-import { axios } from 'axios';
+import axios from 'axios';
 
 export default function App() {
 
-  const [universidade] = useState('');
-  const [pais] = useState('');
+  const [universidade, atualizarUniversidade] = useState('');
+  const [pais, atualizarPais] = useState('');
+
+  const atualizaUniversidade = (txt) => {
+    atualizarUniversidade(txt);
+  }
+
+  const atualizaPais = (txt) => {
+    atualizarPais(txt);
+  }
 
   const pesquisar = () => {
-    const ret = axios.get("http://universities.hipolabs.com/search?name=Univ&country=brazil")
-    console.log(ret.data);
+    if(universidade == ''){
+      if(pais == ''){
+        console.log('Por favor informe a Universidade e/ou País!!');
+      } else{
+        axios.get('http://universities.hipolabs.com/search?country=' + pais).then(function (resposta) {
+          console.log(resposta.data)
+        })
+      }
+    } else{
+      if(pais == ''){
+        axios.get('http://universities.hipolabs.com/search?name=' + universidade).then(function (resposta) {
+          console.log(resposta.data)
+        })
+      } else{
+        axios.get('http://universities.hipolabs.com/search?name=' + universidade + '&country=' + pais).then(function (resposta) {
+          console.log(resposta.data)
+        })
+      }
+    }
   }
 
   return (
@@ -18,10 +43,12 @@ export default function App() {
       <Text style={styles.texto}>Universidade:</Text>
       <TextInput style={styles.input} 
                  placeholder='Nome da universidade'
+                 onChangeText={atualizaUniversidade}
                  value={universidade}/>
       <Text style={styles.texto}>País:</Text>
       <TextInput style={styles.input} 
                  placeholder='Nome do país'
+                 onChangeText={atualizaPais}
                  value={pais}/>
       <Button title='Pesquisar' onPress={pesquisar}/>
       <StatusBar style="auto" />
