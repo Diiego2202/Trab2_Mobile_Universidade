@@ -1,13 +1,14 @@
 import { FlatList } from 'react-native';
+import { RenderItem } from './RenderItem';
 
 
 export const RenderLista = (props) => {
+    console.log(props.resultado)
     return  <FlatList
-    data={props.dados} 
+    data={props.resultado} 
     renderItem={({item, index}) => <RenderItem 
-                                        item={item.name}
-                                        country={item.country} 
-                                        indice={index}
-                                        callBackRemover={props.callBackRemover}/>}
-    keyExtractor={idx => idx.descricao} />;
+                                        universidade={item.name}
+                                        pais={item.country} 
+                                        indice={index}/>}
+    keyExtractor={idx => Math.random()}/>
 }

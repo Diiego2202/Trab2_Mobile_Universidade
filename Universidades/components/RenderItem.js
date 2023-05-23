@@ -1,9 +1,9 @@
-import { StyleSheet, Text, Pressable, Image, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export const RenderItem = (props) => {
 
-    return <View style={ styles.item }>
-                <Text style={{ marginLeft: 10 }}>{props.item}</Text>
+    return <View style={styles.item}>
+                <Text>{props.universidade}, {props.pais}</Text>
             </View>
 }
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         color:"white", 
         margin: 10, 
         padding: 10, 
-        backgroundColor: "yellow"
+        backgroundColor: "pink"
     },
 })
 
